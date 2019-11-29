@@ -18,10 +18,16 @@ const initialState = {
   user_id: "",
   isMovedToArchive: false,
   isMessagesUnread: true,
+  activeChatSession: [],
 };
 
 const user = (state = initialState, action) => {
   switch (action.type) {
+    case types.CHOOSE_ACTIVE_SESSION:
+      return {
+        ...state,
+        activeChatSession: action.payload,
+      };
     case types.READ_MESSAGE:
       return {
         ...state,

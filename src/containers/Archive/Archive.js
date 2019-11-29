@@ -6,6 +6,7 @@ import ChatMessage from "../../components/archive-messages/ChatMessage";
 import Visible from "../../components/Visible/Visible";
 import * as styled from "./styled";
 import { dataModule, rmt } from "../../store/jexiaConnector";
+import {receiveDataFromDataset} from "../../store/actionsCreators/actions";
 
 
 class Chat extends React.Component {
@@ -38,4 +39,8 @@ const mapStateToProps = (state) => ({
   session_id: state.adminData.session_id,
 });
 
-export default connect(mapStateToProps)(Chat);
+const mapDispatchToProps = (dispatch) => ({
+  receiveDataFromDataset: (payload) => dispatch(receiveDataFromDataset(payload))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chat);
