@@ -49,7 +49,6 @@ function* signIn() {
       `https://${projectID}.app.jexia.com/ums/user`,
       {
         headers: {
-          // 'Content-Type': 'application/json',
           'Authorization': "Bearer "+ token,
         }
       }

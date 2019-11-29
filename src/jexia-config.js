@@ -14,7 +14,7 @@ channel.subscribe(
     console.log(message); // we've got a message from the channel
   },
   (error) => {
-    console.log(error); // Subscription Error: (1001): resource "my_camel" is unavailable
+    console.log(error); 
   },
   () => { // complete
     // connection to the channel has been closed
@@ -33,5 +33,5 @@ channel
       console.log(messages);
     },
     (error) => {
-      console.log(error); // Subscription Error: (2): none of the given actions ["read"] for this resource are allowed
+      console.log(error); 
 });
