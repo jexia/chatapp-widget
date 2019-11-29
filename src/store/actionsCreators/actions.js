@@ -3,7 +3,7 @@ import * as consts from "../consts";
 // action for create token
 export const createToken = (email, password) => ({
   type: consts.TAKE_TOKEN,
-  email, 
+  email,
   password,
 });
 
@@ -34,7 +34,7 @@ export const addMessageToList = (messagesList) => ({
 // action for admin login
 export const requestAdminLogin = (email, password) => ({
   type: consts.REQUEST_LOGIN,
-  email, 
+  email,
   password,
 });
 
@@ -100,5 +100,10 @@ export const changeFlagOfMessage= (payload) => ({
 
 export const checkMessages = (payload) => ({
   type: consts.READ_MESSAGE,
+  payload,
+});
+
+export const chooseActiveSession = (payload) => ({
+  type: consts.CHOOSE_ACTIVE_SESSION,
   payload,
 });

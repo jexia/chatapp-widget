@@ -13,7 +13,9 @@ import {
   removeChatToArchive,
   removeChatFromActive,
   resetUnreadMessages,
-  changeFlagOfMessage, checkMessages,
+  changeFlagOfMessage,
+  checkMessages,
+  chooseActiveSession,
 } from "../../store/actionsCreators/actions";
 
 const channel = rmt.channel("chat");
@@ -40,7 +42,6 @@ class ChatSessions extends React.PureComponent {
       .fields("user", "session_id", "date", "last_msg", "unread")
       .execute();
     this.props.receiveDataFromDataset(posts);
-    console.log(posts);
   };
 
   subscribeOnChannel = (session_id) => {
@@ -83,6 +84,18 @@ class ChatSessions extends React.PureComponent {
     setTimeout(() => saveSessionId(sId), 100);
   };
 
+  dynamicSort = (property) => {
+    let sortOrder = 1;
+    if(property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+    return (a,b) => {
+      let result = (a[property] > b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      return result * sortOrder;
+    }
+  };
+
   render() {
     const {
       usersArray,
@@ -95,7 +108,10 @@ class ChatSessions extends React.PureComponent {
       receiveDataFromDataset,
       addMessageToList,
       isMessagesUnread,
+      activeChatSession,
+      chooseActiveSession,
     } = this.props;
+    usersArray !== null ? console.log(usersArray.sort(this.dynamicSort("date"))) : null;
     return (
       <styled.ChatSessionsWrapper>
        <styled.Title
@@ -116,7 +132,7 @@ class ChatSessions extends React.PureComponent {
                 <styled.Text>No Messages Yet</styled.Text>
               </styled.NoMessages>
             :
-            usersArray !== null || undefined ? usersArray.map((el, i) => {
+            usersArray !== null || undefined ? usersArray.sort(this.dynamicSort("date")).map((el, i) => {
               return (
                 <ChatList
                   date={el.date}
@@ -130,6 +146,7 @@ class ChatSessions extends React.PureComponent {
                   session_id={el.session_id}
                   saveSessionId={saveSessionId}
                   changeFlagOfMessage={this.props.changeFlagOfMessage}
+                  chooseActiveSession={chooseActiveSession}
                   subscribeOnChannel={this.subscribeOnChannel}
                   onHeaderClick={() => this.openChatSession(el.session_id, i)}
                   colorSelect={i === this.state.active ? color.lightGray : null}
@@ -140,6 +157,7 @@ class ChatSessions extends React.PureComponent {
                   changeFlagOfArchive={changeFlagOfArchive}
                   isMessagesUnread={isMessagesUnread}
                   wow={this.wow}
+                  activeChatSession={activeChatSession}
                 />
               )
             }) : null
@@ -156,6 +174,7 @@ const mapStateToProps = (state) => ({
   _sID: state.adminData.session_id,
   session_id: state.adminData.session_id,
   isMessagesUnread: state.adminData.isMessagesUnread,
+  activeChatSession: state.adminData.activeChatSession,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -165,6 +184,7 @@ const mapDispatchToProps = (dispatch) => ({
   addMessageToList: (message) => dispatch(addMessageToList(message)),
   removeChatToArchive: (payload) => dispatch(removeChatToArchive(payload)),
   removeChatFromActive: (payload) => dispatch(removeChatFromActive(payload)),
+  chooseActiveSession: (payload) => dispatch(chooseActiveSession(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps) (ChatSessions);

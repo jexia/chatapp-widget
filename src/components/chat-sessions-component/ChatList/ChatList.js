@@ -3,24 +3,26 @@ import * as color from "../../../consts/colors";
 import * as styled from "./style";
 import { Archive_Two } from "../../../consts/images"
 import { rmt, dataModule } from "../../../store/jexiaConnector";
+import { filter, pluck } from "rxjs/operators";
 
 const user_channel = rmt.channel("users");
 
 class ChatList extends React.Component {
-
-  state = {
-    chosenSession_id: null,
-    active: "",
-    chosen: false,
-  };
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      chosenSession_id: null,
+      active: "",
+      chosen: false,
+    };
+  }
 
   handleClick = () => {
     this.props.onHeaderClick(this.props.value);
   };
 
   openChatSession = (sId, user_id) => {
-    const { saveSessionId, subscribeOnChannel, handleChooseSession } = this.props;
+    const { saveSessionId, subscribeOnChannel } = this.props;
     this.handleClick();
     this.readMessage(user_id);
     this.setState({
@@ -74,7 +76,6 @@ class ChatList extends React.Component {
       user_id,
       element,
     } = this.props;
-    console.log(element);
     return (
       <styled.ChatListWrapper
         backgroundColor={colorSelect}
