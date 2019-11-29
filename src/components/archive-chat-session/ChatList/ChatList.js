@@ -35,7 +35,6 @@ class ChatList extends React.Component {
     return (
       <styled.ChatListWrapper
         backgroundColor={colorSelect}
-        // chosenSession_id={this.state.active === session_id}
         onClick={() => this.openChatSession(session_id)}
       >
         <styled.MainInfo
