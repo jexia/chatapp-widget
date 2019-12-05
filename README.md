@@ -1,5 +1,5 @@
 # Chatapp widget.
-Example Chatapp widget is a server-side part for a Chat Application using React, Redux, Redux-Saga, and Jexia's Real Time Communication.
+Example application: Chat app widget is a server-side part for a Chat Application using React, Redux, Redux-Saga, and Jexia's Real Time Communication.
 
 [Widget admin client is a client-side part of this Chat Application](https://github.com/jexia/chatapp-widget-admin-client)
 
