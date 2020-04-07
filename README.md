@@ -1,4 +1,3 @@
-[![Runme](https://runme.io/static/button.svg)](https://runme.io/runme?repo_url=https://github.com/jexia/chatapp-widget.git&repo_branch=master)
 # Chatapp widget.
 Example application: Chat app widget is a server-side part for a Chat Application using React, Redux, Redux-Saga, and Jexia's Real Time Communication.
 
